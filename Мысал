@@ -1,0 +1,21 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+
+# Создаем сгенерированные данные с тремя кластерами
+data, _ = make_blobs(n_samples=300, centers=3, random_state=42)
+
+# Создаем модель k-средних для кластеризации данных на три кластера
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(data)
+
+# Получаем центры кластеров и метки принадлежности каждой точки к одному из кластеров
+cluster_centers = kmeans.cluster_centers_
+labels = kmeans.labels_
+
+# Визуализируем результаты кластеризации
+plt.scatter(data[:, 0], data[:, 1], c=labels, cmap='viridis')
+plt.scatter(cluster_centers[:, 0], cluster_centers[:, 1], c='red', marker='x', s=200)
+plt.title("Результаты кластеризации методом k-средних")
+plt.show()
